@@ -4,13 +4,10 @@ import random
 from deap import base
 from deap import creator
 from deap import tools
-import force_multi
 import random_arr
 import os
 import csv
 import shutil
-import numpy as np
-import pandas as pd
 from scoop import futures
 from concurrent.futures import ThreadPoolExecutor
 import time
@@ -19,7 +16,8 @@ import concurrent.futures
 path = "../bat/fractal_text.txt"
 param = "0.01_smooth1.0.txt"
 
-var_num = 52
+var_num = 52    # 変数
+target_fractal = 1.4490904390896722
 
 creator.create("FitnessMax", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMax)
@@ -31,7 +29,6 @@ toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.att
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 database = {}
-eval_count = 0
 
 def write_log(str1, str2):
     with open('ga_log.txt', 'a') as f:
@@ -58,7 +55,7 @@ def calc_fractal(number, individual, decimal_ind):
 
         with open(path) as f:
             s = f.read().splitlines()
-        square_error = (1.4490904390896722 - float(s[0])) ** 2
+        square_error = (target_fractal - float(s[0])) ** 2
         write_log(str(individual), str(s[0]))
         bdf_copy_name = "../bdf/new_point" + number +"_result.bdf"
         bdf_file_name = "../result/" + str(decimal_ind) + "_" + str(s[0]) +  ".bdf"
@@ -75,8 +72,7 @@ def calc_topology(number):
 
 
 def eval_fractal(pop):
-    global eval_count
-    eval_count += 1
+
     fitness_arr = []
 
     shutil.rmtree('../bdf')
@@ -109,6 +105,7 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 
 def main():
+    start = time.time()
     with open('ga_log.txt', 'w') as f:
         f.write("")
 
@@ -117,7 +114,7 @@ def main():
     random.seed(64)
     
     pop = toolbox.population(n=4)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 4
+    CXPB, MUTPB, NGEN = 0.5, 0.2, 2
     
     print("Start of evolution")
     fitnesses = eval_fractal(pop)
@@ -171,8 +168,6 @@ def main():
         
         print("  Min %s" % min(fits))
         print("  Max %s" % max(fits))
-        global eval_count 
-        print ("eval_count >> ", eval_count)
     
     print("-- End of (successful) evolution --")
     with open('ga_log.txt', 'a') as f:
@@ -189,6 +184,10 @@ def main():
     print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
     with open('ga_log.txt', 'a') as f:
             f.write("Best individual is %s, %s, %s\n" % (best_ind, decimal_best_ind, best_ind.fitness.values))
+    
+    elapsed_time = time.time() - start
+    print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
+
 
 if __name__ == "__main__":
     main()
