@@ -31,7 +31,8 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 database = {}
 
 def write_log(str1, str2):
-    with open('ga_log.txt', 'a') as f:
+    
+    with open('../ga_log.txt', 'a') as f:
         f.write(str1 + " : " + str2 + "\n") 
 
 def change_decimal_ind(individual):
@@ -44,7 +45,7 @@ def change_decimal_ind(individual):
 
 def calc_fractal(number, individual, decimal_ind):
     if (decimal_ind in database) == True:
-        with open('ga_log.txt', 'a') as f:
+        with open('../ga_log.txt', 'a') as f:
             f.write(str(individual) + " : db" + str(database[decimal_ind]) + "\n")
         return database[decimal_ind],
     else:
@@ -106,15 +107,15 @@ toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
     start = time.time()
-    with open('ga_log.txt', 'w') as f:
+    with open('../../ga_log.txt', 'w') as f:
         f.write("")
 
     os.makedirs('../result', exist_ok=True)
 
     random.seed(64)
     
-    pop = toolbox.population(n=4)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 2
+    pop = toolbox.population(n=100)
+    CXPB, MUTPB, NGEN = 0.5, 0.2, 100
     
     print("Start of evolution")
     fitnesses = eval_fractal(pop)
@@ -130,12 +131,12 @@ def main():
         decimal_ind.fitness.values = fit
     
     print("  Evaluated %i individuals" % len(pop))
-    with open('ga_log.txt', 'a') as f:
+    with open('../ga_log.txt', 'a') as f:
             f.write("  Evaluated %i individuals\n" % len(pop))
     
     for g in range(NGEN):
         print("-- Generation %i --" % g)
-        with open('ga_log.txt', 'a') as f:
+        with open('../ga_log.txt', 'a') as f:
             f.write("-- Generation %i --\n" % g)
         offspring = toolbox.select(pop, len(pop))
         offspring = list(map(toolbox.clone, offspring))
@@ -160,7 +161,7 @@ def main():
             ind.fitness.values = fit
         
         print("  Evaluated %i individuals" % len(invalid_ind))
-        with open('ga_log.txt', 'a') as f:
+        with open('../ga_log.txt', 'a') as f:
             f.write("  Evaluated %i individuals\n" % len(invalid_ind))
         pop[:] = offspring
         
@@ -170,7 +171,7 @@ def main():
         print("  Max %s" % max(fits))
     
     print("-- End of (successful) evolution --")
-    with open('ga_log.txt', 'a') as f:
+    with open('../ga_log.txt', 'a') as f:
         f.write("-- End of (successful) evolution --")
     
     best_ind = tools.selBest(pop, 1)[0]
@@ -182,7 +183,7 @@ def main():
     decimal_best_ind = str(decimal_best_ind)
 
     print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
-    with open('ga_log.txt', 'a') as f:
+    with open('../ga_log.txt', 'a') as f:
             f.write("Best individual is %s, %s, %s\n" % (best_ind, decimal_best_ind, best_ind.fitness.values))
     
     elapsed_time = time.time() - start

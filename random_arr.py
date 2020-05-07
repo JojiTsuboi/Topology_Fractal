@@ -16,11 +16,12 @@ def fractal(individual, i):
     # pos_arr = [12, 241, 361, 482, 602, 121, 241, 362, 482, 603]     # test
 
     force_support = list()
-
+    
     with open('force.csv') as f:
         read = csv.reader(f)
         for row in read:
             force_support.append(row)
+
 
     for i in range(52):
         if individual[i] == 1:
@@ -94,10 +95,10 @@ def fractal(individual, i):
 
 
 
-# def main():
-#     ind = [1 for i in range(52)]
-#     print(ind)
-#     fractal(ind, "a")
+def main():
+    ind = [0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0]
 
-# if __name__ == "__main__":
-#     main()
+    fractal(ind, "9999")
+
+if __name__ == "__main__":
+    main()
