@@ -11,246 +11,6 @@ import sys
 from tqdm import tqdm
 import pprint
 
-# def count(arr, x, y, z, b):
-#     ct = 0
-#     i = 0
-#     range_num = b
-#     while i <= x:
-#         ct += np.count_nonzero(arr[i:range_num][0:b][0:b] == 1)
-#         i += range_num
-#         range_num = i + range_num
-#     while i <= y:
-#         ct += np.count_nonzero(arr[0:b][i:range_num][0:b] == 1)
-#         i += range_num
-#         range_num = i + range_num
-#     while i <= z:
-#         ct += np.count_nonzero(arr[0:b][i:range_num][0:b] == 1)
-#         i += range_num
-#         range_num = i + range_num
-
-
-#     if (np.count_nonzero(arr[0:range_num][0:b][0:b] == 1) > 0):
-#         ct += 1
-#     if range_num > x:
-#         y += b
-#     np.count_nonzero(arr[b:2*b][0:b][0:b] == 1)
-#     np.count_nonzero(arr[2*b:3*b][0:b][0:b] == 1)
-    
-#     np.count_nonzero(arr[0:b][b:2*b][0:b] == 1)
-#     np.count_nonzero(arr[b:2*b][b:2*b][0:b] == 1)
-#     np.count_nonzero(arr[2*b:3*b][b:2*b][0:b] == 1)
-
-#     np.count_nonzero(arr[2*b:3*b][b:2*b][0:b] == 1)
-    
-#     return ct
-
-# def count(arr, x, y, z, b):
-#     """ img: 対象画像、x,y: 画像のサイズ、b: ボックスのサイズ """
-#     i = 0
-#     j = 0
-#     w = 0
-#     c = 0
-
-#     # while w < z:
-#     while i < x and j < y:
-#         flag = False
-#         for k in range(0, b):
-#             for l in range(0, b):
-#                 if i+k < x and j+l < y:
-#                     if arr[i+k][j+l][w] == 1:
-#                         """ ボックスに図形が含まれていたらカウントして次の図形へ """
-#                         c += 1
-#                         flag = True
-#                         break
-#             if flag:
-#                 break
-#         i += b
-#         if i >= x:
-#             """ ボックスが右端に達したら左端に戻す """
-#             i = 0
-#             j += b
-#         # w += b
-
-#     i = 0
-#     j = 0    
-#     w = 1
-#     while i < x and j < y:
-#         flag = False
-#         for k in range(0, b):
-#             for l in range(0, b):
-#                 if i+k < x and j+l < y:
-#                     if arr[i+k][j+l][w] == 1:
-#                         """ ボックスに図形が含まれていたらカウントして次の図形へ """
-#                         c += 1
-#                         flag = True
-#                         break
-#             if flag:
-#                 break
-#         i += b
-#         if i >= x:
-#             """ ボックスが右端に達したら左端に戻す """
-#             i = 0
-#             j += b
-
-#     return c # 図形が含まれていたボックスの数を返す
-
-# def count(arr, x, y, z, b):
-#     """ img: 対象画像、x,y: 画像のサイズ、b: ボックスのサイズ """
-#     i = 0
-#     j = 0
-#     w = 0
-#     c = 0
-
-#     while w <= z:
-#         print("w : ", w)
-#         while i < x and j < y:
-#             flag = False
-#             for k in range(0, b):
-#                 for l in range(0, b):
-#                     if i+k < x and j+l < y:
-#                         if arr[i+k][j+l][w] == 1:
-#                             # print("arr", arr[i+k][j+l][w])
-#                             """ ボックスに図形が含まれていたらカウントして次の図形へ """
-#                             c += 1
-#                             flag = True
-#                             break
-#                 if flag:
-#                     break
-#             i += b
-#             if i >= x:
-#                 """ ボックスが右端に達したら左端に戻す """
-#                 i = 0
-#                 j += b
-#         w += b
-
-#     return c # 図形が含まれていたボックスの数を返す
-
-# def count(arr, x, y, z, b):
-#     """ img: 対象画像、x,y: 画像のサイズ、b: ボックスのサイズ """
-#     i = 0
-#     j = 0
-#     w = 0
-#     c = 0
-
-#     while w < z:
-#         w_ct_tmp = 0
-#         print("w : ", w)
-#         while i < x and j < y:
-#             flag = False
-#             for k in range(0, b):
-#                 for l in range(0, b):
-#                     for d in range(0, b):
-#                         if i+k < x and j+l < y and w+d < z:
-#                             if arr[i+k][j+l][w+d] == 1:
-#                                 """ ボックスに図形が含まれていたらカウントして次の図形へ """
-#                                 c += 1
-#                                 w_ct_tmp += 1
-#                                 flag = True
-#                                 break
-#                     if flag:
-#                         break
-#                 if flag:
-#                     break
-
-#                 if j >= y:
-#                     """ ボックスが右端に達したら左端に戻す """
-#                     j = 0
-#                     w += b
-#             i += b
-#             if i >= x:
-#                 """ ボックスが右端に達したら左端に戻す """
-#                 i = 0
-#                 j += b
-#         print("w_ct", w_ct_tmp)
-#         w += b
-
-#     return c # 図形が含まれていたボックスの数を返す
-
-#  and i != j != k != 0 and b != b_tmp != b_tmp2
-
-# def count(arr, x, y, z, b):
-#     """ img: 対象画像、x,y: 画像のサイズ、b: ボックスのサイズ """
-#     i = j = k = 0
-#     b_tmp  = b
-#     b_tmp2 = b
-#     ct = 0
-
-#     while i < x:
-#         if (np.count_nonzero(arr[i:b, j:b_tmp, k:b_tmp] == 1) > 0):
-#             # print("[", i, b, "]", "[", j, b_tmp, "]", "[",  k, b_tmp, "]")
-#             ct += 1
-#         i += b_tmp
-#         b += b_tmp
-
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while j < y:
-#         # print("[", i, b_tmp, "]", "[", j, b, "]", "[",  k, b_tmp, "]")
-#         if (np.count_nonzero(arr[i:b_tmp, j:b, k:b_tmp] == 1) > 0):
-#             # print("[", i, b_tmp, "]", "[", j, b, "]", "[",  k, b_tmp, "]")
-#             ct += 1
-#         j += b_tmp
-#         b += b_tmp
-
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while k < z:
-#         # print("[", i, b_tmp, "]", "[", j, b_tmp, "]", "[",  k, b, "]")
-#         if (np.count_nonzero(arr[i:b_tmp, j:b_tmp, k:b] == 1) > 0):
-#             # print("[", i, b_tmp, "]", "[", j, b_tmp, "]", "[",  k, b, "]")
-#             ct += 1
-#         k += b_tmp
-#         b += b_tmp
-
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while k < z and j < y:
-#         if (np.count_nonzero(arr[i:b_tmp,j:b,k:b] == 1) > 0):
-#             # print("[", i, b_tmp, "]", "[", j, b, "]", "[",  k, b, "]")
-#             ct += 1
-#         k += b_tmp
-#         j += b_tmp
-#         b += b_tmp
-
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while i < x and k < z:
-#         if (np.count_nonzero(arr[i:b,j:b_tmp,k:b] == 1) > 0):
-#             # print("[", i, b, "]", "[", j, b_tmp, "]", "[",  k, b, "]")
-#             ct += 1
-#         i += b_tmp
-#         k += b_tmp
-#         b += b_tmp
-
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while i < x and j < y:
-#         if (np.count_nonzero(arr[i:b,j:b,k:b_tmp] == 1) > 0):
-#             # print("[", i, b, "]", "[", j, b, "]", "[",  k, b_tmp, "]")
-#             ct += 1
-#         i += b_tmp
-#         j += b_tmp
-#         b += b_tmp
-    
-#     i = j = k = 0
-#     b = b_tmp2
-#     b_tmp  = b_tmp2
-#     while i < x and j < y and k < z:
-#         if (np.count_nonzero(arr[i:b,j:b,k:b] == 1) > 0):
-#             # print("[", i, b, "]", "[", j, b, "]", "[",  k, b, "]")
-#             ct += 1
-#         i += b_tmp
-#         j += b_tmp
-#         k += b_tmp
-#         b += b_tmp
-
-
-#     return ct # 図形が含まれていたボックスの数を返す
 
 def count(arr, x, y, z, b):
     """ img: 対象画像、x,y: 画像のサイズ、b: ボックスのサイズ """
@@ -265,7 +25,8 @@ def count(arr, x, y, z, b):
         while j < y:
             while i < x:
                 if (np.any(arr[i:b, j:j_tmp, k:k_tmp] == 1)):
-                        # print("[", i, b, "]", "[", j, j_tmp, "]", "[",  k, k_tmp, "]")
+                        # if (b_tmp2 == 100):
+                        #     print("[", i, b, "]", "[", j, j_tmp, "]", "[",  k, k_tmp, "]")
                         ct += 1
                 i += b_tmp
                 b += b_tmp
@@ -278,6 +39,7 @@ def count(arr, x, y, z, b):
         k += b_tmp2
         k_tmp += b_tmp2
         b = b_tmp2
+        j_tmp = b_tmp2
         i = 0
         j = 0
 
@@ -387,13 +149,12 @@ def show(data, array3d, x_max, y_max, z_max, x_min, y_min, z_min):
     y_arr = []
     z_arr = []
 
-    for i in tqdm(range(100)):     # stl三角形判定の精度() 
+    for i in tqdm(range(200)):     # stl三角形判定の精度() 
         arr = np.random.rand(3)
         arr /= np.sum(arr)
         different_param(data, arr[0], arr[1], arr[2], x_arr, y_arr, z_arr, array3d, x_max, y_max, z_max, x_min, y_min, z_min)
 
     
-
     x_max = max(x_arr)
     y_max = max(y_arr)
     z_max = max(z_arr)
@@ -407,8 +168,8 @@ def show(data, array3d, x_max, y_max, z_max, x_min, y_min, z_min):
 def main():
 
     # data = mesh.Mesh.from_file('100_100_test_mesh.stl')
-    data = mesh.Mesh.from_file('new_point9999_result.stl')
-    # data = mesh.Mesh.from_file('Dragon.stl')
+    # data = mesh.Mesh.from_file('new_point9999_result.stl')
+    data = mesh.Mesh.from_file('Dragon.stl')
 
     print(len(data.vectors))
 
@@ -427,21 +188,15 @@ def main():
 
     array3d = show(data, array, x_max, y_max, z_max, x_min, y_min, z_min)
 
+    # array3d = np.ones((x_size,y_size,z_size))
+
     grid_size = max([x_size, y_size, z_size])
 
     ct_1 = np.count_nonzero(array3d == 1)
     print("array_size", array3d.size)
     print("count_of_1", ct_1)
 
-    a = input()
-
-    # print(array3d[100][:][:])
-    # pprint.pprint(array3d[100][:][:], width=200)
-
-    # a = input()
-
-
-    while grid_size >= 1:
+    while grid_size > 1:
         n = count(array3d, x_size, y_size, z_size, grid_size)
 
         graph_x.append(math.log(grid_size))
@@ -449,6 +204,9 @@ def main():
         print(grid_size, n)
         print (math.log(grid_size), math.log(n))
         grid_size = int(grid_size / 2)
+    
+    graph_x.append(math.log(1))
+    graph_y.append(math.log(ct_1))
 
     graph_x = np.array(graph_x).reshape((len(graph_x), 1)) # 1列にする
     graph_y = np.array(graph_y).reshape((len(graph_y), 1))
@@ -465,7 +223,7 @@ def main():
     print("回帰係数=", model_lr.coef_) # フラクタル次元
     print('決定係数 R^2： ', model_lr.score(graph_x, graph_y))
 
-    plt.show()
+    # plt.show()
 
     fractal = model_lr.coef_[0][0] 
 
